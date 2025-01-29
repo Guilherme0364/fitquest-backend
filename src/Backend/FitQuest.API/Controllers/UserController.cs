@@ -11,7 +11,7 @@ namespace FitQuest.API.Controllers
     {
         [HttpPost]
         [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status201Created)]
-        public IActionResult Register(RequestRegisterUserJson request) // 
+        public IActionResult Register(RequestRegisterUserJson request) // Retorna uma responde específica e pede um request específico no body da requisição
         {
             return Created();
         }

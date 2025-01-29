@@ -11,10 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Shared\FitQuest.Communication\FitQuest.Communication.csproj" />
     <ProjectReference Include="..\FitQuest.Application\FitQuest.Application.csproj" />
   </ItemGroup>

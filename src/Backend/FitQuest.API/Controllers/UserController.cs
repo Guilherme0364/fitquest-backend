@@ -1,4 +1,5 @@
-﻿using FitQuest.Communication.Requests;
+﻿using FitQuest.Application.UseCases.User.Register;
+using FitQuest.Communication.Requests;
 using FitQuest.Communication.Response;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,9 +12,13 @@ namespace FitQuest.API.Controllers
     {
         [HttpPost]
         [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status201Created)]
-        public IActionResult Register(RequestRegisterUserJson request) // Retorna uma responde específica e pede um request específico no body da requisição
+        public IActionResult Register(RequestRegisterUserJson request) 
         {
-            return Created();
+            var UseCase = new RegisterUserUseCase();
+
+            var result = UseCase.Execute(request);
+
+            return Created(string.Empty ,result); // Created recebe 0 ou 2 argumentos
         }
     }
 }

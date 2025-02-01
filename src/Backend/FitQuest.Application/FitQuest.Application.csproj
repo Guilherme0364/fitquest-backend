@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Shared\FitQuest.Communication\FitQuest.Communication.csproj" />
+    <ProjectReference Include="..\..\Shared\FitQuest.Exception\FitQuest.Exceptions.csproj" />
     <ProjectReference Include="..\FitQuest.Domain\FitQuest.Domain.csproj" />
   </ItemGroup>
 

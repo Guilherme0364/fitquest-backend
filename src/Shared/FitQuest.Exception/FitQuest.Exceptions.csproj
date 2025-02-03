@@ -4,6 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	  <InvariantGlobalization>false</InvariantGlobalization> <!--Para realizar troca de cultura-->
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,21 +13,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ResourceMessagesException.resx</DependentUpon>
     </Compile>
-    <Compile Update="ResourceMessagesException.pt-BR.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ResourceMessagesException.pt-BR.resx</DependentUpon>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Update="ResourceMessagesException.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ResourceMessagesException.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="ResourceMessagesException.pt-BR.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ResourceMessagesException.pt-BR.Designer.cs</LastGenOutput>
+      <LastGenOutput>ResourceMessagesException.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

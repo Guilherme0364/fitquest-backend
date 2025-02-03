@@ -11,13 +11,13 @@ namespace FitQuest.Application.UseCases.User.Register
             // Cria uma regra para o usuário onde o nome dele não pode ser vazio
             RuleFor(user => user.Name).NotEmpty().WithMessage(ResourceMessagesException.NAME_EMPTY); 
 
-            RuleFor(user => user.Email).NotEmpty();
+            RuleFor(user => user.Email).NotEmpty().WithMessage(ResourceMessagesException.EMAIL_EMPTY);
 
             // Verifica se o email é um email de fato
-            RuleFor(user => user.Email).EmailAddress();
+            RuleFor(user => user.Email).EmailAddress().WithMessage(ResourceMessagesException.EMAIL_INVALID);
 
             // Verifica se a senha possui mais de 6 caracteres
-            RuleFor(user => user.Password.Length).GreaterThanOrEqualTo(6); 
+            RuleFor(user => user.Password.Length).GreaterThanOrEqualTo(6).WithMessage(ResourceMessagesException.PASSWORD_INVALID); 
         }
     }
 }

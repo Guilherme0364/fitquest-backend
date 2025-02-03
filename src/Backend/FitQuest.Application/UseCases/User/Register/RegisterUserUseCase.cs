@@ -1,5 +1,6 @@
 ﻿using FitQuest.Communication.Requests;
 using FitQuest.Communication.Response;
+using FitQuest.Exceptions.ExceptionsBase;
 
 namespace FitQuest.Application.UseCases.User.Register
 {
@@ -26,11 +27,12 @@ namespace FitQuest.Application.UseCases.User.Register
 
             var result = validator.Validate(request);
 
-            if (result.IsValid == false) // Ela retorna true se o resultado da validação der correto (os dados foram passados corretamente)
+            // Retorna true se o resultado da validação der correto (os dados foram passados corretamente)
+            if (result.IsValid == false) 
             {
-                var errorMessages = result.Errors.Select(e => e.ErrorMessage); // Mapea o objeto iterável "e" (é o nosso erro) achando a propriedade que contém a mensagem de erro
+                var errorMessages = result.Errors.Select(e => e.ErrorMessage).ToList(); // Mapea o objeto iterável "e" (é o nosso erro) achando a propriedade que contém a mensagem de erro
 
-                throw new Exception();
+                throw new ErrorOnValidationException(errorMessages);
             }
         }
     }

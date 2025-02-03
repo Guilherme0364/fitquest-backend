@@ -18,7 +18,7 @@ namespace FitQuest.API.Controllers
 
             var result = UseCase.Execute(request);
 
-            return Created(string.Empty ,result); // Created recebe 0 ou 2 argumentos
+            return Created(string.Empty, result); // Created recebe 0 ou 2 argumentos          
         }
     }
 }

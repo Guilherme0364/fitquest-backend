@@ -9,14 +9,15 @@ namespace FitQuest.API.Controllers
     [Route("/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
-    {
+    {                
+
         [HttpPost]
         [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status201Created)]
-        public IActionResult Register(RequestRegisterUserJson request) 
-        {
-            var UseCase = new RegisterUserUseCase();
-
-            var result = UseCase.Execute(request);
+        public async Task<IActionResult> Register(
+            [FromServices]IRegisterUserUseCase useCase, // Recebendo o UseCase por Injeção de Dependência (dos serviços de injeção)
+            [FromBody]RequestRegisterUserJson request) // Recebendo a Request do Body da requisição
+        {            
+            var result = await useCase.Execute(request);
 
             return Created(string.Empty, result); // Created recebe 0 ou 2 argumentos          
         }

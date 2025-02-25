@@ -1,5 +1,7 @@
 using FitQuest.API.Filters;
 using FitQuest.API.Middleware;
+using FitQuest.Application;
+using FitQuest.Infraestructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,10 +13,19 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
 
 // Adiciona o filtro de exceção
-builder.Services.AddMvc(options => options.Filters.Add(typeof(ExceptionFilter))); 
+builder.Services.AddMvc(options => options.Filters.Add(typeof(ExceptionFilter)));
+
+
+// Injeção de Dependência
+builder.Services.AddInfraestructure(builder.Configuration);
+builder.Services.AddApplication();
+
+
+// Configurações pré build devem ir acima
+var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

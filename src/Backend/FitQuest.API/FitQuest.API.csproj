@@ -4,6 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+	  <InvariantGlobalization>false</InvariantGlobalization>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,11 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Shared\FitQuest.Communication\FitQuest.Communication.csproj" />
+    <ProjectReference Include="..\..\Shared\FitQuest.Exception\FitQuest.Exceptions.csproj" />
     <ProjectReference Include="..\FitQuest.Application\FitQuest.Application.csproj" />
   </ItemGroup>
 

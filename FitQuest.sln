@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitQuest.Communication", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitQuest.Exceptions", "src\Shared\FitQuest.Exception\FitQuest.Exceptions.csproj", "{BBD64370-23C2-49FB-85A5-278958ED9D29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitQuest.Infraestruture", "src\Backend\FitQuest.Infraestruture\FitQuest.Infraestruture.csproj", "{717FDBA8-2042-420B-AA6E-BF50937E9389}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitQuest.Infraestructure", "src\Backend\FitQuest.Infraestruture\FitQuest.Infraestructure.csproj", "{717FDBA8-2042-420B-AA6E-BF50937E9389}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

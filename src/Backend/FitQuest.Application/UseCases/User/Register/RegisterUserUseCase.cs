@@ -1,36 +1,74 @@
-﻿using FitQuest.Communication.Requests;
+﻿using AutoMapper;
+using FitQuest.Application.Services.AutoMapper;
+using FitQuest.Application.Services.Criptography;
+using FitQuest.Communication.Requests;
 using FitQuest.Communication.Response;
+using FitQuest.Domain.Repositories;
+using FitQuest.Domain.Repositories.User;
+using FitQuest.Exceptions;
 using FitQuest.Exceptions.ExceptionsBase;
+using FitQuest.Infraestructure.DataAccess;
 
 namespace FitQuest.Application.UseCases.User.Register
 {
-    public class RegisterUserUseCase
+    public class RegisterUserUseCase : IRegisterUserUseCase
     {
-        public ResponseRegisteredUserJson Execute(RequestRegisterUserJson request)
-        {
-            // 1°: Validar a Request (Nome não é vazio, Email é um e-mail mesmo, senha contém os requisitos)
-            Validate(request);
+        private readonly IUserReadOnlyRepository _readOnlyRepository;
+        private readonly IUserWriteOnlyRepository _writeOnlyRepository;
+        private readonly IUnityOfWork _unityOfWork;
+        private readonly PasswordEncrypter _passwordEncrypter;
+        private readonly IMapper _mapper;
+        
 
-            // 2°: Mapear a Request em uma entidade (Uma Classe para receber os dados)
-            // 3°: Criptografar da senha do usuário
-            // 4°: Salvar no Banco de Dados
+        public RegisterUserUseCase(
+            IUserReadOnlyRepository readOnlyRepository, 
+            IUserWriteOnlyRepository writeOnlyRepository,
+            PasswordEncrypter passwordEncrypter,
+            IUnityOfWork unityOfWork,
+            IMapper mapper)
+        {
+            _writeOnlyRepository = writeOnlyRepository;
+            _readOnlyRepository = readOnlyRepository;
+            _passwordEncrypter = passwordEncrypter;
+            _unityOfWork = unityOfWork;
+            _mapper = mapper;
+        }
+
+        public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)
+        {            
+            await Validate(request);
+
+            var user = _mapper.Map<Domain.Entities.User>(request);
+
+            user.Password = _passwordEncrypter.Encrypt(request.Password);
+
+            await _writeOnlyRepository.Add(user);
+
+            await _unityOfWork.Commit();
 
             return new ResponseRegisteredUserJson
             {
                 Name = request.Name
             };
-
         }
-        private void Validate(RequestRegisterUserJson request)
+
+        private async Task Validate(RequestRegisterUserJson request)
         {
             var validator = new RegisterUserValidator();
 
             var result = validator.Validate(request);
 
-            // Retorna true se o resultado da validação der correto (os dados foram passados corretamente)
-            if (result.IsValid == false) 
+            var emailExist = await _readOnlyRepository.ExistisActiveUserWithEmail(request.Email);
+
+            if (emailExist)
             {
-                var errorMessages = result.Errors.Select(e => e.ErrorMessage).ToList(); // Mapea o objeto iterável "e" (é o nosso erro) achando a propriedade que contém a mensagem de erro
+                result.Errors.Add(new FluentValidation.Results.ValidationFailure(string.Empty, ResourceMessagesException.EMAIL_ALREADY_EXISTS));
+            }
+
+            // Se existe um erro o IsValid se torna falso
+            if (result.IsValid == false)
+            {
+                var errorMessages = result.Errors.Select(e => e.ErrorMessage).ToList();
 
                 throw new ErrorOnValidationException(errorMessages);
             }

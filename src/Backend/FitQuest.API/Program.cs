@@ -2,6 +2,8 @@ using FitQuest.API.Filters;
 using FitQuest.API.Middleware;
 using FitQuest.Application;
 using FitQuest.Infraestructure;
+using FitQuest.Infraestructure.Extension;
+using FitQuest.Infraestructure.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +22,7 @@ builder.Services.AddMvc(options => options.Filters.Add(typeof(ExceptionFilter)))
 
 // Injeção de Dependência
 builder.Services.AddInfraestructure(builder.Configuration);
-builder.Services.AddApplication();
+builder.Services.AddApplication(builder.Configuration);
 
 
 // Configurações pré build devem ir acima
@@ -42,4 +44,16 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+MigrateDatabase();
+
 app.Run();
+
+void MigrateDatabase()
+{
+    var connectionString = builder.Configuration.ConnectionString();
+
+    // Cria o escopo para utilizarmos o serviço de injeção de depedência
+    var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
+
+    DatabaseMigration.Migrate(connectionString, serviceScope.ServiceProvider);
+}

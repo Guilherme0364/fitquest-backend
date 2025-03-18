@@ -1,12 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FitQuest.Domain.Repositories.User;
+using Moq;
 
 namespace CommonTestUtilities.Repositories
 {
-    internal class UserReadOnlyRepositoryBuilder
+    public class UserReadOnlyRepositoryBuilder
     {
+        private readonly Mock<IUserReadOnlyRepository> _repository;
+
+        public UserReadOnlyRepositoryBuilder() 
+        { 
+            _repository = new Mock<IUserReadOnlyRepository>();
+        }
+
+        public void ExistActiveUserWithEmail(string email)
+        {
+            // Ela da acesso às funções da interface
+            _repository.Setup(repository => repository.ExistisActiveUserWithEmail(email)).ReturnsAsync(true);
+        }
+
+        public IUserReadOnlyRepository Build()
+        {
+            return _repository.Object;
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace CommonTestUtilities.Repositories
         {
             var mock = new Mock<IUserWriteOnlyRepository>();
 
-            // Retorna a implementação "fake" da UnityOfWork
+            // Retorna a implementação "fake" da UserWriteOnlyRepository
             return mock.Object;
         }
     }

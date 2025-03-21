@@ -16,8 +16,13 @@ namespace FitQuest.Infraestructure
     {
         public static void AddInfraestructure(this IServiceCollection services, IConfiguration configuration)
         {
-            AddDbContext_SqlServer(services, configuration);
             AddRepositories(services);
+
+            if (configuration.IsUnityTestEnviroment())
+                return;
+
+            AddDbContext_SqlServer(services, configuration);
+            
             AddFluentMigration(services, configuration);
         }
 

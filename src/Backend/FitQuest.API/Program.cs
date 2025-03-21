@@ -50,10 +50,18 @@ app.Run();
 
 void MigrateDatabase()
 {
+    if (builder.Configuration.IsUnityTestEnviroment())
+        return; // Se for teste de unidade, não executa o resto
+
     var connectionString = builder.Configuration.ConnectionString();
 
     // Cria o escopo para utilizarmos o serviço de injeção de depedência
     var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
 
     DatabaseMigration.Migrate(connectionString, serviceScope.ServiceProvider);
+}
+
+public partial class Program()
+{
+
 }

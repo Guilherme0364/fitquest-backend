@@ -62,6 +62,5 @@ void MigrateDatabase()
 }
 
 public partial class Program()
-{
-
+{    
 }

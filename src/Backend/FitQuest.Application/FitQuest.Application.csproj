@@ -16,7 +16,7 @@
     <ProjectReference Include="..\..\Shared\FitQuest.Communication\FitQuest.Communication.csproj" />
     <ProjectReference Include="..\..\Shared\FitQuest.Exception\FitQuest.Exceptions.csproj" />
     <ProjectReference Include="..\FitQuest.Domain\FitQuest.Domain.csproj" />
-    <ProjectReference Include="..\FitQuest.Infraestruture\FitQuest.Infraestructure.csproj" />
+    <ProjectReference Include="..\FitQuest.Infraestruture\FitQuest.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

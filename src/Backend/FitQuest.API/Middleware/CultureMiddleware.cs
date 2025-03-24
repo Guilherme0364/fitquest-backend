@@ -15,7 +15,7 @@ namespace FitQuest.API.Middleware
         public async Task Invoke(HttpContext context)
         {
             // Pega todas as culturas suportadas pelo .NET
-            var suportedLanguages = CultureInfo.GetCultures(CultureTypes.AllCultures); 
+            var suportedLanguages = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList(); 
 
             // Recuperar da requisição a cultura que o aplicativo solicitou
             var requestCulture = context.Request.Headers.AcceptLanguage.FirstOrDefault();
@@ -25,7 +25,7 @@ namespace FitQuest.API.Middleware
 
             // Se o header não for e nulo ou vazio e o mesmo for uma cultura suportada pelo .NET (verificado na comparação)
             if (string.IsNullOrEmpty(requestCulture) == false
-                && suportedLanguages.Any(c => c.Name.Equals(requestCulture)))
+                && suportedLanguages.Exists(c => c.Name.Equals(requestCulture)))
             {
                  cultureInfo = new CultureInfo(requestCulture);
             }

@@ -53,7 +53,7 @@ namespace FitQuest.Infraestructure
                 options
                     .AddSqlServer()
                     .WithGlobalConnectionString(connectionString)
-                    .ScanIn(Assembly.Load("FitQuest.Infraestructure")).For.All();
+                    .ScanIn(Assembly.Load("FitQuest.Infrastructure")).For.All();
             });
         }
     }

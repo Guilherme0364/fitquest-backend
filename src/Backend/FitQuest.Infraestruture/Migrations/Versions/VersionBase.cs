@@ -11,7 +11,7 @@ namespace FitQuest.Infraestructure.Migrations.Versions
             return Create.Table(table)
                 .WithColumn("Id").AsInt64().PrimaryKey().Identity()
                 .WithColumn("CreatedOn").AsDateTime().NotNullable()
-                .WithColumn("IsActive").AsBoolean().NotNullable();
+                .WithColumn("Active").AsBoolean().NotNullable();
         }
     }
 }

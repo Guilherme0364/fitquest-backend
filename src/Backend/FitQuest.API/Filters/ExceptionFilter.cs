@@ -23,12 +23,9 @@ namespace FitQuest.API.Filters
         }
 
         private static void HandleProjectException(ExceptionContext context)
-        {
-            if(context.Exception is ErrorOnValidationException)
+        {            
+            if(context.Exception is ErrorOnValidationException exception)
             {
-                // Para termos acesso a IList criada dentro da classe de Exceção personalisada
-                var exception = context.Exception as ErrorOnValidationException;
-
                 context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest; // Cast de Enum para Int
                 context.Result = new BadRequestObjectResult(new ResponseErrorJson(exception!.ErrorMessages));
             }

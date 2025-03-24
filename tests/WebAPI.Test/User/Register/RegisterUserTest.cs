@@ -6,7 +6,6 @@ using CommonTestUtilities.InlineData;
 using CommonTestUtilities.Requests;
 using FitQuest.Exceptions;
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace WebAPI.Test.User.Register
 {

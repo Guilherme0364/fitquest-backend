@@ -24,6 +24,11 @@ builder.Services.AddMvc(options => options.Filters.Add(typeof(ExceptionFilter)))
 builder.Services.AddInfraestructure(builder.Configuration);
 builder.Services.AddApplication(builder.Configuration);
 
+// Necessário para deixar as URLs com letra minúscula
+builder.Services.AddRouting(options =>
+{
+    options.LowercaseUrls = true;
+});
 
 // Configurações pré build devem ir acima
 var app = builder.Build();

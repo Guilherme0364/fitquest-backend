@@ -1,5 +1,6 @@
 ﻿using FitQuest.Application.Services.AutoMapper;
 using FitQuest.Application.Services.Criptography;
+using FitQuest.Application.UseCases.Login.DoLogin;
 using FitQuest.Application.UseCases.User.Register;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +27,7 @@ namespace FitQuest.Application
         private static void AddUseCases(IServiceCollection services)
         {
             services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
+            services.AddScoped<IDoLoginUseCase, DoLoginUseCase>();
         }
 
         private static void AddPasswordEncrypter(IServiceCollection services, IConfiguration configuration)

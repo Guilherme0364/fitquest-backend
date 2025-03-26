@@ -24,10 +24,16 @@ namespace FitQuest.API.Filters
 
         private static void HandleProjectException(ExceptionContext context)
         {            
-            if(context.Exception is ErrorOnValidationException exception)
+            if(context.Exception is ErrorOnValidationException validationException)
             {
                 context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest; // Cast de Enum para Int
-                context.Result = new BadRequestObjectResult(new ResponseErrorJson(exception!.ErrorMessages));
+                context.Result = new BadRequestObjectResult(new ResponseErrorJson(validationException!.ErrorMessages));
+            }
+
+            else if (context.Exception is InvalidLoginException loginException)
+            {
+                context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized; // Cast de Enum para Int
+                context.Result = new UnauthorizedObjectResult(new ResponseErrorJson(context.Exception.Message));
             }
         }
 

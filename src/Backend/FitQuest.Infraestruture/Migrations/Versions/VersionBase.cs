@@ -8,7 +8,7 @@ namespace FitQuest.Infraestructure.Migrations.Versions
     {
         protected ICreateTableColumnOptionOrWithColumnSyntax CreateTable(string table)
         {
-            return Create.Table(table)
+            return CreateTable(table)
                 .WithColumn("Id").AsInt64().PrimaryKey().Identity()
                 .WithColumn("CreatedOn").AsDateTime().NotNullable()
                 .WithColumn("Active").AsBoolean().NotNullable();

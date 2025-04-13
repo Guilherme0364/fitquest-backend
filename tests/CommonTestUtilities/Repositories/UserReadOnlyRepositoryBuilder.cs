@@ -1,4 +1,5 @@
-﻿using FitQuest.Domain.Repositories.User;
+﻿using FitQuest.Domain.Entities;
+using FitQuest.Domain.Repositories.User;
 using Moq;
 
 namespace CommonTestUtilities.Repositories
@@ -16,6 +17,11 @@ namespace CommonTestUtilities.Repositories
         {
             // Ela da acesso às funções da interface
             _repository.Setup(repository => repository.ExistisActiveUserWithEmail(email)).ReturnsAsync(true);
+        }
+
+        public void GetByEmailAndPassword(User user)
+        {            
+            _repository.Setup(repository => repository.GetByEmailAndPassword(user.Email, user.Password)).ReturnsAsync(user);
         }
 
         public IUserReadOnlyRepository Build()
